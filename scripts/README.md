@@ -1,5 +1,5 @@
 ## Game system
-The game system is created using [JavaScipt Classes - MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes), the class is delared in [GameSystem.js](/GameSystem.js), please use the syntax of `Game` when you are using the system in the console.
+The game system is created using [JavaScipt Classes - MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes), the class is delared in [GameSystem.js](./GameSystem.ts), please use the syntax of `Game` when you are using the system in the console.
 
 Example *(read [BorgerPerSecond](#bps-borgers-per-second) for more information)*:
 ```typescript
