@@ -110,6 +110,7 @@ class GameSystem {
     }
 
     get upgrades() { return get('upgrades') }
+    set upgrades(value) { set('upgrades', JSON.parse(value)) }
 }
 
 const Game = new GameSystem();
