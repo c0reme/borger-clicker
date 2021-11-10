@@ -11,6 +11,7 @@ if (typeof Storage === 'undefined') {
 }
 
 function get(key) {
+    if (!localStorage[key]) localStorage[key] = '';
     return JSON.parse(localStorage[key]);
 }
 
@@ -34,6 +35,13 @@ function math(key, expression, value) {
 
 class GameSystem {
     async init() {
+        if (typeof Storage === 'undefined') {
+            alert('Sadly, your browser does not support web storage.');
+        } else {
+            if (!localStorage.upgrades) this.upgrades = { borgerboy: 0 }
+            if (!localStorage.bps) this.bps = 0;
+            if (!localStorage.borgers) this.borgers = 0;
+        }
         $('#bps').text((this.bps).valueOf().toLocaleString('en-US'));
         $('#borgers').text((this.borgers).valueOf().toLocaleString('en-US'));
     }
@@ -41,7 +49,7 @@ class GameSystem {
     get borgers() { return get('borgers') }
     set borgers(value) {
         set('borgers', value)
-        $('#borgers').text((this.borgers).valueOf().toLocaleString('en-US'));
+        $('#borgers').text((this.borgers).valueOf().toLocaleString('en-US'))
     }
 
     /**
@@ -114,3 +122,21 @@ class GameSystem {
 }
 
 var Game = new GameSystem();
+$(async () => {
+    await Game.init(); // Initalises the game.
+    let temp = Game.borgers;
+    setInterval(() => {
+        Game.addBorgers(Game.bps / 100);
+    }, 10)
+    setInterval(() => {
+        if (Game.borgers - temp >  0) {
+            $('title').text(`${(Game.borgers - temp).toLocaleString('en-US')} bps ∙ Borger Clicker by Cammy`)
+        } else {
+            $('title').text(`Borger Clicker by Cammy`)
+        }
+        $('#bps').text((Game.borgers - temp).toLocaleString('en-US'));
+        setTimeout(() => {
+            temp = Game.borgers;
+        }, .01)
+    }, 1000)
+})
