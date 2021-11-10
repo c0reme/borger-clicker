@@ -34,14 +34,14 @@ function math(key, expression, value) {
 
 class GameSystem {
     async init() {
-        $('#bps').text(this.bps.toLocaleString('en-US'));
-        $('#borgers').text(this.borgers.toLocaleString('en-US'));
+        $('#bps').text((this.bps).valueOf().toLocaleString('en-US'));
+        $('#borgers').text((this.borgers).valueOf().toLocaleString('en-US'));
     }
 
     get borgers() { return get('borgers') }
     set borgers(value) {
         set('borgers', value)
-        $('#borgers').text(this.borgers.toLocaleString('en-US'))
+        $('#borgers').text((this.borgers).valueOf().toLocaleString('en-US'));
     }
 
     /**
