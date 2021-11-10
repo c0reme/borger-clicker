@@ -10,25 +10,6 @@
         <!-- Scripts managing the game -->
         <script src="scripts/GameSystem.js"></script>
         <script type="text/javascript" src="scripts/Events.js"></script>
-        <script>
-            $(document).ready(async () => {
-                await Game.init();
-                let temp = Game.borgers;
-                setInterval(() => {
-                    Game.addBorgers(Game.bps / 100);
-                    console.log(Game.borgers);
-                    if (Game.borgers - temp >  0) {
-                        $('title').val(`${Game.burgers - temp + Game} BPS ∙ Borger Clicker by Cammy`)
-                    } else {
-                        $('title').val(`Borger Clicker by Cammy`)
-                    }
-                    $('#bps').text(((Game.borgers - temp) * 100).toLocaleString('en-US'));
-                    setTimeout(() => {
-                        temp = Game.borgers;
-                    }, .01)
-                }, 10)
-            })
-        </script>
     </head>
     <body>
         <div class="container">
