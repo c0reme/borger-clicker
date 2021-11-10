@@ -1,3 +1,15 @@
+if (typeof Storage === 'undefined') {
+    alert('Sadly, your browser does not support web storage.');
+} else {
+    if (typeof localStorage.upgrades === 'undefined') {
+        this.upgrades = {
+            borgerboy: 0
+        };
+    }
+    if (typeof localStorage.bps === 'undefined') this.bps = 0;
+    if (typeof localStorage.borgers === 'undefined') this.borgers = 0;
+}
+
 function get(key) {
     return JSON.parse(localStorage[key]);
 }
@@ -21,18 +33,6 @@ function math(key, expression, value) {
 }
 
 class GameSystem {
-    constructor() {
-        if (typeof Storage === 'undefined') {
-            alert('Sadly, your browser does not support web storage.');
-        } else {
-            if (!localStorage.upgrades) {
-                this.upgrades ={
-                    borgerboy: 0
-                };
-            }
-            if (!localStorage.bps) this.borgers = 0;
-        }
-    }
     async init() {
         $('#bps').text(this.bps.toLocaleString('en-US'));
         $('#borgers').text(this.borgers.toLocaleString('en-US'));
@@ -112,4 +112,5 @@ class GameSystem {
     get upgrades() { return get('upgrades') }
     set upgrades(value) { set('upgrades', JSON.parse(value)) }
 }
+
 var Game = new GameSystem();
