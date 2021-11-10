@@ -2,12 +2,33 @@
 <html>
     <head>
         <title>Borger Clicker by Cammy</title>
-        <link rel="shortcut icon" href="./img/hand.png">
-        <link rel="stylesheet" href="./css/main.css">
+        <link rel="shortcut icon" href="img/hand.png">
+        <link rel="stylesheet" href="css/main.css">
+        <link rel="stylesheet" href="css/animations.css">
         <!-- jQuery v3.6.0 file -->
-        <script src="/scripts/jQuery-3.6.0.js"></script>
+        <script src="scripts/jQuery-3.6.0.js"></script>
         <!-- Scripts managing the game -->
-        <script></script>
+        <script src="scripts/GameSystem.js"></script>
+        <script type="text/javascript" src="scripts/Events.js"></script>
+        <script>
+            $(document).ready(async () => {
+                await Game.init();
+                let temp = Game.borgers;
+                setInterval(() => {
+                    Game.addBorgers(Game.bps / 100);
+                    console.log(Game.borgers);
+                    if (Game.borgers - temp >  0) {
+                        $('title').val(`${Game.burgers - temp + Game} BPS ∙ Borger Clicker by Cammy`)
+                    } else {
+                        $('title').val(`Borger Clicker by Cammy`)
+                    }
+                    $('#bps').text(((Game.borgers - temp) * 100).toLocaleString('en-US'));
+                    setTimeout(() => {
+                        temp = Game.borgers;
+                    }, .01)
+                }, 10)
+            })
+        </script>
     </head>
     <body>
         <div class="container">
@@ -19,9 +40,9 @@
                     <p><span id="bps" style="font-weight: bold;">0</span> borgers/sec</p>
                 </div>
                 <!-- The container holding the button and the hands -->
-                <div class="container">
-                    <div id="borger">
-                        <img src="/img/borger.png">
+                <div class="borger">
+                    <div id="borger" onclick="onBorgerClick()">
+                        <img src="img/borger.png">
                     </div>
                     <div id="hands"> <!-- The rotater -->
 
