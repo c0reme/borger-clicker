@@ -33,14 +33,21 @@ function math(key, expression, value) {
     }
 }
 
-function unitify(number, decimals = 1) {
+function unitify(number = 0, decimals = 1) {
     if (number < Math.pow(10, 3)) return number.toLocaleString('en-US');
-    else if (number < Math.pow(10, 6)) return `${(number.toFixed(decimals) /  Math.pow(10, 3)).toLocaleString('en-US')}K`;
-    else if (number < Math.pow(10, 9)) return `${(number.toFixed(decimals) /  Math.pow(10, 6)).toLocaleString('en-US')}M`;
-    else if (number < Math.pow(10, 12)) return `${(number.toFixed(decimals) / Math.pow(10, 9)).toLocaleString('en-US')}B`;
-    else if (number < Math.pow(10, 15)) return `${(number.toFixed(decimals) / Math.pow(10, 12)).toLocaleString('en-US')}t`;
-    else if (number < Math.pow(10, 18)) return `${(number.toFixed(decimals) / Math.pow(10, 15)).toLocaleString('en-US')}q`;
-    else if (number < Math.pow(10, 21)) return `${(number.toFixed(decimals) / Math.pow(10, 18)).toLocaleString('en-US')}Q`;
+    else if (number < Math.pow(10, 6)) return `${(number / Math.pow(10, 3)).toFixed(decimals)}K`; // (K) Thousand - 10^3 
+    else if (number < Math.pow(10, 9)) return `${(number / Math.pow(10, 6)).toFixed(decimals)}M`; // (M) Million - 10^6
+    else if (number < Math.pow(10, 12)) return `${(number / Math.pow(10, 9)).toFixed(decimals)}B`; // (B) Billion - 10^9
+    else if (number < Math.pow(10, 15)) return `${(number / Math.pow(10, 12)).toFixed(decimals)}t`; // (t) trillion - 10^12
+    else if (number < Math.pow(10, 18)) return `${(number / Math.pow(10, 15)).toFixed(decimals)}q`;
+    else if (number < Math.pow(10, 21)) return `${(number / Math.pow(10, 18)).toFixed(decimals)}Q`;
+    else if (number < Math.pow(10, 24)) return `${(number / Math.pow(10, 21)).toFixed(decimals)}s`;
+    else if (number < Math.pow(10, 27)) return `${(number / Math.pow(10, 24)).toFixed(decimals)}S`;
+    else if (number < Math.pow(10, 30)) return `${(number / Math.pow(10, 27)).toFixed(decimals)}o`;
+    else if (number < Math.pow(10, 33)) return `${(number / Math.pow(10, 30)).toFixed(decimals)}n`;
+    else if (number < Math.pow(10, 36)) return `${(number / Math.pow(10, 33)).toFixed(decimals)}d`;
+    else if (number < Math.pow(10, 39)) return `${(number / Math.pow(10, 36)).toFixed(decimals)}U`;
+    else return number.toLocaleString('en-US');
 }
 
 class GameSystem {
@@ -48,9 +55,10 @@ class GameSystem {
         if (typeof Storage === 'undefined') {
             alert('Sadly, your browser does not support web storage.');
         } else {
-            if (!localStorage.upgrades) this.upgrades = { borgerboy: 0 }
+            if (!localStorage.upgrades) this.upgrades = { clickers: 0 }
             if (!localStorage.bps) this.bps = 0;
             if (!localStorage.borgers) this.borgers = 0;
+            if (!localStorage.click_amount) this.click_amount = 1;
         }
         $('#bps').text(unitify(this.bps));
         $('#borgers').text(unitify(this.borgers));
@@ -129,6 +137,9 @@ class GameSystem {
 
     get upgrades() { return get('upgrades') }
     set upgrades(value) { set('upgrades', JSON.stringify(value)) }
+
+    get click_amount() { return get('click_amount') };
+    set click_amount(value) { set('click_amount', value) }
 }
 
 var Game = new GameSystem();
@@ -139,7 +150,7 @@ $(async () => {
         Game.addBorgers(Game.bps / 100);
     }, 10)
     setInterval(() => {
-        if (Game.borgers >  0) {
+        if (Game.borgers > 0) {
             $('title').text(`${unitify(Game.borgers)} borgers ∙ Borger Clicker by Cammy`)
         } else {
             $('title').text(`Borger Clicker by Cammy`)

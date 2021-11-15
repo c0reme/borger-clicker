@@ -11,13 +11,22 @@
         <script src="js/GameSystem.js"></script> <!-- Defines and manages the game -->
         <script type="text/javascript" src="js/Events.js"></script>
         <!-- Cascading style sheets -->
+        <link rel="stylesheet" href="css/cookie-banner.css">
         <link rel="stylesheet" href="css/main.css">
         <link rel="stylesheet" href="css/animations.css">
         <link rel="stylesheet" href="css/footer.css">
         <link rel="stylesheet" href="css/background.css">
+        <link rel="stylesheet" href="css/store.css">
         <!-- Misc -->
         <title>Borger Clicker by Cammy</title>
         <link rel="shortcut icon" href="img/hand.png">
+        <script>
+            $().ready(function() {
+                
+                $('#xm-clicker').val(Game.upgrades.clickers * 100);
+                $('#xm-clicker').text(unitify($('#xm-clicker').val()));
+            })
+        </script>
     </head>
     <body>
         <!--
@@ -56,6 +65,25 @@
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+        <!-- Upgrades -->
+        <div id="store">
+            <button id="store-button" onclick="onStoreOpen()">≡</button>
+            <div>
+                <h1>Store</h1>
+                <table style="padding: 10px;" id="store-amount">
+                    <tr><button onclick="onXn('1')">x1</button></tr>
+                    <tr><button onclick="onXn('10')">x10</button></tr>
+                    <tr><button onclick="onXn('100')">x100</button></tr>
+                    <tr><button onclick="onXn('max')">MAX</button></tr>
+                </table>
+                <table style="padding: 10px;" id="store-upgrades">
+                    <tr>
+                        <td id="upgrade-text">Clickers</td>
+                        <td id="upgrade-button"><button onclick="onBXn('clicker')">Buy <span id="xn">x1</span><br><span id="xm-clicker">0</span></button></td>
+                    </tr>
+                </table>
             </div>
         </div>
     </body>

@@ -4,6 +4,7 @@ body {
     text-align: center;
     margin: 0 auto;
     background-color: rgb(48, 48, 48);
+    overflow: hidden;
 }
 
 .container {
