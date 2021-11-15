@@ -1,3 +1,60 @@
 body {
+    color: white;
     font-family: 'Courier New', Courier, monospace;
+    text-align: center;
+    margin: 0 auto;
+    background-color: rgb(48, 48, 48);
+}
+
+.container {
+    background-color: transparent /*rgb(39, 39, 39)*/;
+    margin: 0 auto;
+    /* Sets the min and max width of the body*/
+    min-width: 600px;
+    max-width: 1200px;
+}
+
+.center {
+    top: 100px;
+    bottom: 50px;
+    position:relative;
+    object-fit:contain;
+    object-position:center;
+}
+
+.border {
+    border: 1px dotted black;
+}
+
+
+img {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none; 
+    user-select: none;
+}
+
+#borger {
+    padding: 10px;
+    width: 50%;
+    height: auto;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+#borger > img {
+    width: 100%;
+    height: auto;
+}
+
+#borger > img:hover {
+    cursor: pointer;
+}
+
+
+
+.column {
+    display: inline-block;
+    padding: 5px;
+    flex: 50%;
 }
